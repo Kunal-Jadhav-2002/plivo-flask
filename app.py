@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, Response
 from plivo import plivoxml
 
@@ -20,4 +21,5 @@ def incoming_call():
     return Response(response.to_string(), mimetype='text/xml')
 
 if __name__ == "__main__":
-    app.run(port=5000)
+    port = int(os.environ.get("PORT", 5000))  # Railway gives PORT env var
+    app.run(host="0.0.0.0", port=port)
